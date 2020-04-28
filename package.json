@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development parcel src/index.html --open",
-    "build": "NODE_ENV=production parcel build dist/index.html --public-url ./"
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
