@@ -26,7 +26,10 @@
     "prettier": "2.0.5"
   },
   "dependencies": {
+    "codemirror": "^5.53.2",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-codemirror2": "^7.1.0",
     "react-dom": "^16.13.1"
   }
 }
