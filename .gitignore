@@ -30,6 +30,7 @@ sketch
 # Ignore all local history of files
 .history
 
-dist/
+dist/*
+!dist/.keep
 
 # End of https://www.gitignore.io/api/react,visualstudiocode
