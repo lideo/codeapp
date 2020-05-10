@@ -6,7 +6,6 @@ function Preview({ cssCode, htmlCode, jsCode }) {
 
   function updateIframe() {
     const iframe = iframeRef.current;
-    var win = iframe.contentWindow;
     var doc = iframe.contentDocument
       ? iframe.contentDocument
       : iframe.contentWindow.document;
