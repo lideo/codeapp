@@ -12,7 +12,7 @@ import "codemirror/addon/edit/matchbrackets";
 import "codemirror/addon/edit/closebrackets";
 import "codemirror/addon/scroll/simplescrollbars";
 
-function Editor({ mode, autofocus, onChange, value }) {
+const Editor = React.forwardRef(({ mode, autofocus, onChange, value }, ref) => {
   const defaultOptions = {
     lineNumbers: true,
     styleActiveLine: true,
@@ -41,6 +41,7 @@ function Editor({ mode, autofocus, onChange, value }) {
         className="codeEditorInner"
         options={options}
         onChange={onChange}
+        ref={ref}
         editorDidMount={(editor) => {
           if (autofocus) {
             editor.focus();
@@ -49,7 +50,7 @@ function Editor({ mode, autofocus, onChange, value }) {
       />
     </div>
   );
-}
+});
 
 Editor.propTypes = {
   mode: PropTypes.string,

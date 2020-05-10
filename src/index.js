@@ -1,56 +1,56 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
+import { Resizable } from "re-resizable";
 
 import Editor from "./components/Editor";
 import Preview from "./components/Preview";
 
+const htmlCodeKey = "codeapp:htmlCode";
+const cssCodeKey = "codeapp:cssCode";
+const jsCodeKey = "codeapp:jsCode";
+
+const initialValues = {
+  htmlCode: localStorage.getItem(htmlCodeKey) || "",
+  cssCode: localStorage.getItem(cssCodeKey) || "",
+  jsCode: localStorage.getItem(jsCodeKey) || "",
+};
+
+const previewReloadDelay = 3000;
+
 function App() {
-  const htmlCodeRef = useRef(localStorage.getItem("codeapp:htmlCode") || "");
-  const cssCodeRef = useRef(localStorage.getItem("codeapp:cssCode") || "");
-  const jsCodeRef = useRef(localStorage.getItem("codeapp:jsCode") || "");
+  const [htmlCode, setHtmlCode] = useState(initialValues.htmlCode);
+  const [cssCode, setCssCode] = useState(initialValues.cssCode);
+  const [jsCode, setJsCode] = useState(initialValues.jsCode);
+
+  const htmlCodeEditorRef = useRef(null);
+  const cssCodeEditorRef = useRef(null);
+  const jsCodeEditorRef = useRef(null);
   const timeoutRef = useRef(null);
-  const previewReload = useRef(3000);
 
-  const [htmlCode, setHtmlCode] = useState(htmlCodeRef.current);
-  const [cssCode, setCssCode] = useState(cssCodeRef.current);
-  const [jsCode, setJsCode] = useState(jsCodeRef.current);
+  function debounceFunction(func, delay) {
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(func, delay);
+  }
 
-  function updatePreview(editor, setCodeCb) {
-    if (timeoutRef.current !== null) {
-      return;
-    }
-    timeoutRef.current = setTimeout(() => {
-      timeoutRef.current = null;
-
+  function updatePreview() {
+    debounceFunction(() => {
       console.log(Date.now(), "updating...");
 
-      setCodeCb(editor.getValue());
-    }, previewReload.current);
+      setHtmlCode(htmlCodeEditorRef.current.editor.getValue());
+      setCssCode(cssCodeEditorRef.current.editor.getValue());
+      setJsCode(jsCodeEditorRef.current.editor.getValue());
+    }, previewReloadDelay);
   }
 
-  function handleHtmlChange(editor, data, value) {
-    updatePreview(editor, setHtmlCode);
-  }
-
-  function handleCssChange(editor, data, value) {
-    updatePreview(editor, setCssCode);
-  }
-
-  function handleJsChange(editor, data, value) {
-    updatePreview(editor, setJsCode);
+  function handleChange() {
+    updatePreview();
   }
 
   useEffect(() => {
-    localStorage.setItem("codeapp:htmlCode", htmlCode);
-  }, [htmlCode]);
-
-  useEffect(() => {
-    localStorage.setItem("codeapp:cssCode", cssCode);
-  }, [cssCode]);
-
-  useEffect(() => {
-    localStorage.setItem("codeapp:jsCode", jsCode);
-  }, [jsCode]);
+    localStorage.setItem(htmlCodeKey, htmlCode);
+    localStorage.setItem(cssCodeKey, cssCode);
+    localStorage.setItem(jsCodeKey, jsCode);
+  }, [htmlCode, cssCode, jsCode]);
 
   return (
     <React.Fragment>
@@ -58,18 +58,21 @@ function App() {
         <Editor
           mode="xml"
           autofocus={true}
-          onChange={handleHtmlChange}
-          value={htmlCodeRef.current}
+          onChange={handleChange}
+          value={initialValues.htmlCode}
+          ref={htmlCodeEditorRef}
         />
         <Editor
           mode="css"
-          onChange={handleCssChange}
-          value={cssCodeRef.current}
+          onChange={handleChange}
+          value={initialValues.cssCode}
+          ref={cssCodeEditorRef}
         />
         <Editor
           mode="javascript"
-          onChange={handleJsChange}
-          value={jsCodeRef.current}
+          onChange={handleChange}
+          value={initialValues.jsCode}
+          ref={jsCodeEditorRef}
         />
         <Preview cssCode={cssCode} htmlCode={htmlCode} jsCode={jsCode} />
       </div>
