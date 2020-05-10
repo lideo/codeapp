@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
-import { Resizable } from "re-resizable";
 
 import Editor from "./components/Editor";
 import Preview from "./components/Preview";
