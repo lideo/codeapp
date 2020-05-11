@@ -16,7 +16,7 @@ function Resizer({ id = "", type, onMouseDownCallback = () => {} }) {
 Resizer.propTypes = {
   id: PropTypes.string,
   type: PropTypes.string,
-  onMouseDownCallback: PropTypes.function,
+  onMouseDownCallback: PropTypes.func,
 };
 
 export default Resizer;
