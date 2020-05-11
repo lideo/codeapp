@@ -26,13 +26,10 @@ function App() {
   const jsCodeEditorRef = useRef(null);
   const timeoutRef = useRef(null);
 
-  function debounceFunction(func, delay) {
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(func, delay);
-  }
-
   function updatePreview() {
-    debounceFunction(() => {
+    clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
       console.log(Date.now(), "updating...");
 
       setHtmlCode(htmlCodeEditorRef.current.editor.getValue());
