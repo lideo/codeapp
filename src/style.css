@@ -4,6 +4,7 @@
 
 :root {
   --font-family: "Source Code Pro", monospace;
+  --grid-resizer-size: 10px;
 }
 
 html {
@@ -19,48 +20,136 @@ body {
   font-family: var(--font-family);
 }
 
-/* Layout */
+/* Grid */
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    "htmlEditor preview"
-    "cssEditor preview"
-    "javascriptEditor preview";
+  grid-gap: 0;
+  gap: 0;
+}
+
+.main-grid {
+  grid-template-columns: 1fr var(--grid-resizer-size) 1fr;
+  grid-template-areas: "editorArea resizer1 previewArea";
 
   height: 100vh;
   width: 100vw;
 }
 
-.htmlEditor {
+.editor-grid {
+  grid-template-rows:
+    1fr var(--grid-resizer-size) 1fr var(--grid-resizer-size)
+    1fr;
+  grid-template-areas:
+    "htmlEditor"
+    "resizer2"
+    "cssEditor"
+    "resizer3"
+    "jsEditor";
+
+  height: 100%;
+}
+
+.cell {
+  overflow: hidden;
+}
+
+#editorArea {
+  grid-area: editorArea;
+}
+
+#htmlEditor {
   grid-area: htmlEditor;
 }
 
-.cssEditor {
+#cssEditor {
   grid-area: cssEditor;
 }
 
-.javascriptEditor {
-  grid-area: javascriptEditor;
+#javascriptEditor {
+  grid-area: jsEditor;
 }
 
-.preview {
-  grid-area: preview;
+#previewArea {
+  grid-area: previewArea;
+}
+*/
+
+/* Resizer */
+
+#resizer1 {
+  grid-area: resizer1;
+}
+#resizer2 {
+  grid-area: resizer2;
+}
+#resizer3 {
+  grid-area: resizer3;
+}
+
+.resizer {
+  background-color: #4a4a4a;
+  position: relative;
+}
+
+.resizer.horizontal {
+  width: 100%;
+  height: var(--grid-resizer-size);
+  cursor: row-resize;
+}
+.resizer.vertical {
+  height: 100%;
+  width: var(--grid-resizer-size);
+  cursor: col-resize;
+}
+
+.resizer.vertical::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin-left: calc(-1px * var(--grid-resizer-size) / 4);
+  width: var(--grid-resizer-size);
+}
+
+.resizer.vertical::after {
+  content: "";
+  display: flex;
+  background: rgb(255, 255, 255, 0.25) none repeat scroll 0% 0%;
+  border-radius: 50px;
+  position: absolute;
+  width: calc(var(--grid-resizer-size) / 4);
+  height: calc(var(--grid-resizer-size) * 3);
+  top: calc(50% - calc(var(--grid-resizer-size) * 1.5));
+  margin-left: calc(var(--grid-resizer-size) / 2.66666666667);
+  opacity: 1;
+}
+
+.resizer.horizontal::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: calc(-1px * var(--grid-resizer-size) / 4);
+  height: var(--grid-resizer-size);
+}
+
+.resizer.horizontal::after {
+  content: "";
+  display: flex;
+  background: rgb(255, 255, 255, 0.25) none repeat scroll 0% 0%;
+  border-radius: 50px;
+  position: absolute;
+  height: calc(var(--grid-resizer-size) / 4);
+  width: calc(var(--grid-resizer-size) * 3);
+  left: calc(50% - calc(var(--grid-resizer-size) * 1.5));
+  margin-top: calc(var(--grid-resizer-size) / 2.66666666667);
+  opacity: 1;
 }
 
 /* Editor area */
 
-.codeEditor {
-  overflow: hidden;
-}
-.codeEditor + .codeEditor {
-  border-top: 1px solid white;
-}
-
-.codeEditorInner {
+.react-codemirror2 {
   height: 100%;
 }
 

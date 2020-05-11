@@ -35,20 +35,17 @@ const Editor = React.forwardRef(({ mode, autofocus, onChange, value }, ref) => {
   );
 
   return (
-    <div className={`codeEditor ${mode}Editor`}>
-      <CodeMirror
-        value={value}
-        className="codeEditorInner"
-        options={options}
-        onChange={onChange}
-        ref={ref}
-        editorDidMount={(editor) => {
-          if (autofocus) {
-            editor.focus();
-          }
-        }}
-      />
-    </div>
+    <CodeMirror
+      value={value}
+      options={options}
+      onChange={onChange}
+      ref={ref}
+      editorDidMount={(editor) => {
+        if (autofocus) {
+          editor.focus();
+        }
+      }}
+    />
   );
 });
 
