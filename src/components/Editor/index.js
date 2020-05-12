@@ -11,6 +11,10 @@ import "codemirror/addon/selection/active-line";
 import "codemirror/addon/edit/matchbrackets";
 import "codemirror/addon/edit/closebrackets";
 import "codemirror/addon/scroll/simplescrollbars";
+import "codemirror/addon/hint/show-hint";
+import "codemirror/addon/hint/javascript-hint";
+import "codemirror/addon/hint/html-hint";
+import "codemirror/addon/hint/css-hint";
 
 const Editor = React.forwardRef(({ mode, autofocus, onChange, value }, ref) => {
   const defaultOptions = {
@@ -22,9 +26,9 @@ const Editor = React.forwardRef(({ mode, autofocus, onChange, value }, ref) => {
     gutter: true,
     lineWrapping: true,
     scrollbarStyle: "simple",
-    htmlMode: mode === "xml" ? true : false,
     screenReaderLabel: `${mode} Editor`,
     autocorrect: true,
+    extraKeys: { "Ctrl-Space": "autocomplete" },
   };
 
   const options = Object.assign(

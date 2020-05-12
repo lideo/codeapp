@@ -51,7 +51,7 @@ function App() {
 
   const htmlEditor = (
     <Editor
-      mode="xml"
+      mode="text/html"
       autofocus={true}
       onChange={handleChange}
       value={initialValues.htmlCode}
