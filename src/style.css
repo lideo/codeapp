@@ -53,6 +53,20 @@ body {
 
 .cell {
   overflow: hidden;
+  position: relative;
+}
+
+.cell .label {
+  position: absolute;
+  top: 0.5rem;
+  right: 1.5rem;
+  z-index: 3;
+
+  padding: 0.25em;
+  background-color: white;
+  border-radius: 5%;
+  font-size: 0.75em;
+  opacity: 0.15;
 }
 
 #editorArea {

@@ -152,19 +152,25 @@ function Grid({
     >
       <Cell id="editorArea">
         <div className="grid-container editor-grid">
-          <Cell id="htmlEditor">{htmlEditor}</Cell>
+          <Cell id="htmlEditor" label="HTML">
+            {htmlEditor}
+          </Cell>
           <Resizer
             id="resizer2"
             type="horizontal"
             onMouseDownCallback={handleStartResize}
           />
-          <Cell id="cssEditor">{cssEditor}</Cell>
+          <Cell id="cssEditor" label="CSS">
+            {cssEditor}
+          </Cell>
           <Resizer
             id="resizer3"
             type="horizontal"
             onMouseDownCallback={handleStartResize}
           />
-          <Cell id="jsEditor">{jsEditor}</Cell>
+          <Cell id="jsEditor" label="JS">
+            {jsEditor}
+          </Cell>
         </div>
       </Cell>
       <Resizer
