@@ -27,7 +27,10 @@ function Header() {
       </nav>
 
       <Modal show={helpVisible} onCloseCallback={toggleShowHelp} title="Help">
-        <p>Your changes are stored in the browser&apos;s localStorage.</p>
+        <p>
+          Your changes are stored in the browser&apos;s localStorage, if
+          available.
+        </p>
         <h3>Keyboard shortcuts</h3>
         <dl>
           <dt>

@@ -6,14 +6,28 @@ import Grid from "./components/Grid";
 import Editor from "./components/Editor";
 import Preview from "./components/Preview";
 
+import { storageAvailable } from "./utils";
+
 const htmlCodeKey = "codeapp:htmlCode";
 const cssCodeKey = "codeapp:cssCode";
 const jsCodeKey = "codeapp:jsCode";
 
 const initialValues = {
-  htmlCode: localStorage.getItem(htmlCodeKey) || "",
-  cssCode: localStorage.getItem(cssCodeKey) || "",
-  jsCode: localStorage.getItem(jsCodeKey) || "",
+  htmlCode: storageAvailable("localStorage")
+    ? localStorage.getItem(htmlCodeKey)
+      ? localStorage.getItem(htmlCodeKey)
+      : ""
+    : "" || "",
+  cssCode: storageAvailable("localStorage")
+    ? localStorage.getItem(cssCodeKey)
+      ? localStorage.getItem(cssCodeKey)
+      : ""
+    : "" || "",
+  jsCode: storageAvailable("localStorage")
+    ? localStorage.getItem(jsCodeKey)
+      ? localStorage.getItem(jsCodeKey)
+      : ""
+    : "" || "",
 };
 
 const previewReloadDelay = 3000;
@@ -45,9 +59,11 @@ function App() {
   }
 
   useEffect(() => {
-    localStorage.setItem(htmlCodeKey, htmlCode);
-    localStorage.setItem(cssCodeKey, cssCode);
-    localStorage.setItem(jsCodeKey, jsCode);
+    if (storageAvailable("localStorage")) {
+      localStorage.setItem(htmlCodeKey, htmlCode);
+      localStorage.setItem(cssCodeKey, cssCode);
+      localStorage.setItem(jsCodeKey, jsCode);
+    }
   }, [htmlCode, cssCode, jsCode]);
 
   const htmlEditor = (
