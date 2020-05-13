@@ -6,6 +6,11 @@
 :root {
   --font-family: "Source Code Pro", monospace;
   --grid-resizer-size: 10px;
+  --header-height: 32px;
+  --color-dark: #272822;
+  --color-light: floralwhite;
+  --color-toolbar: #4a4a4a;
+  --border-radius: 2px;
 }
 
 html {
@@ -19,6 +24,186 @@ body {
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
   font-family: var(--font-family);
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Header */
+
+header {
+  height: var(--header-height);
+  background-color: var(--color-toolbar);
+
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+header h1 {
+  font-size: 1rem;
+  color: white;
+  font-weight: normal;
+  color: deeppink;
+}
+header h1 span {
+  color: white;
+}
+header nav {
+  align-self: flex-end;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  flex-flow: row no-wrap;
+  margin: 0;
+}
+
+header nav ul > li {
+  color: white;
+  font-size: 0.85em;
+}
+
+header nav ul > li + li {
+  margin-left: 1.5em;
+}
+
+header nav button {
+  border: none;
+  background-color: transparent;
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
+}
+
+header nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Modal */
+
+.modal {
+  position: fixed;
+  z-index: 500;
+  background-color: var(--color-toolbar);
+  width: 70%;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  left: 15%;
+  top: 30%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-flow: column wrap;
+
+  animation: hideModal 0.3s;
+}
+
+@media (min-width: 600px) {
+  .modal {
+    width: 500px;
+    left: calc(50% - 250px);
+  }
+}
+
+.modal.show {
+  animation: showModal 0.3s;
+}
+
+@keyframes showModal {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes hideModal {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+.modal .header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal .header .close {
+  font-size: 1em;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+}
+
+.modal .header .close .icon {
+  width: 0.75em;
+  width: 1cap;
+  height: 0.75em;
+  height: 1cap;
+}
+
+.modal .header .close .with-icon {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.modal .header .close .with-icon .icon {
+  margin-inline-end: 0.5em;
+}
+
+.backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+dt {
+  display: inline-block;
+  margin: 0 0.5em 0.5em 0;
+}
+
+dd {
+  margin: 0;
+  display: inline;
+}
+
+dd::after {
+  content: "\a";
+  white-space: pre;
+}
+
+kbd {
+  display: inline-flex;
+  margin-right: 0.5em;
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  padding: 0.25em 0.5em;
+  border-radius: var(--border-radius);
 }
 
 /* Grid */
@@ -33,7 +218,7 @@ body {
   grid-template-columns: 1fr var(--grid-resizer-size) 1fr;
   grid-template-areas: "editorArea resizer1 previewArea";
 
-  height: 100vh;
+  height: calc(100vh - var(--header-height));
   width: 100vw;
 }
 
@@ -64,9 +249,10 @@ body {
 
   padding: 0.25em;
   background-color: white;
-  border-radius: 5%;
+  border-radius: var(--border-radius);
   font-size: 0.75em;
   opacity: 0.15;
+  color: var(--color-dark);
 }
 
 #editorArea {
@@ -103,7 +289,7 @@ body {
 }
 
 .resizer {
-  background-color: #4a4a4a;
+  background-color: var(--color-toolbar);
   position: relative;
 }
 
@@ -174,6 +360,8 @@ iframe {
   width: 100%;
   height: 100%;
   border: none;
+  background-color: white;
+  color: black;
 }
 
 /* Codemirror overrides */

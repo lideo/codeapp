@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 
+import Header from "./components/Header";
 import Grid from "./components/Grid";
 import Editor from "./components/Editor";
 import Preview from "./components/Preview";
@@ -82,12 +83,15 @@ function App() {
   );
 
   return (
-    <Grid
-      htmlEditor={htmlEditor}
-      cssEditor={cssEditor}
-      jsEditor={jsEditor}
-      preview={preview}
-    />
+    <Fragment>
+      <Header />
+      <Grid
+        htmlEditor={htmlEditor}
+        cssEditor={cssEditor}
+        jsEditor={jsEditor}
+        preview={preview}
+      />
+    </Fragment>
   );
 }
 
