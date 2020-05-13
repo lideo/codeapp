@@ -26,8 +26,7 @@ function Header() {
         </ul>
       </nav>
 
-      <Modal show={helpVisible} onCloseCallback={toggleShowHelp}>
-        <h2>Help</h2>
+      <Modal show={helpVisible} onCloseCallback={toggleShowHelp} title="Help">
         <p>Your changes are stored in the browser&apos;s localStorage.</p>
         <h3>Keyboard shortcuts</h3>
         <dl>
@@ -36,6 +35,10 @@ function Header() {
             <kbd>Space</kbd>
           </dt>
           <dd>Activate autocomplete</dd>
+          <dt>
+            <kbd>Esc</kbd>
+          </dt>
+          <dd>Close this modal</dd>
         </dl>
       </Modal>
     </header>

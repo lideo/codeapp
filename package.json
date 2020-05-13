@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "codemirror": "^5.53.2",
+    "focus-trap-react": "^6.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-codemirror2": "^7.1.0",
