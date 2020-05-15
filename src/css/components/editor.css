@@ -1,0 +1,47 @@
+/*********************
+ *
+ * CodeMirror
+ *
+ *********************/
+
+/* Editor area */
+
+.react-codemirror2 {
+  height: 100%;
+}
+
+@import "codemirror/lib/codemirror.css";
+@import "codemirror/theme/monokai.css";
+@import "codemirror/addon/scroll/simplescrollbars.css";
+@import "codemirror/addon/hint/show-hint.css";
+
+/* Codemirror overrides */
+
+.cm-s-monokai.CodeMirror {
+  font-family: var(--font-family);
+}
+
+.CodeMirror {
+  height: 100%;
+  font-size: 0.875rem;
+}
+
+.CodeMirror-simplescroll-vertical {
+  width: 10px;
+}
+
+.CodeMirror-simplescroll-horizontal,
+.CodeMirror-simplescroll-vertical {
+  background-color: transparent;
+}
+
+.CodeMirror-simplescroll-horizontal div,
+.CodeMirror-simplescroll-vertical div {
+  background-clip: padding-box;
+}
+
+.CodeMirror-simplescroll-vertical div {
+  border-color: transparent;
+  border-radius: 0;
+  border-right-width: 5px;
+}

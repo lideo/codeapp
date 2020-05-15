@@ -1,0 +1,67 @@
+/*********************
+ *
+ * Grid
+ *
+ *********************/
+
+.grid-container {
+  display: grid;
+  grid-gap: 0;
+  gap: 0;
+}
+
+.main-grid {
+  grid-template-columns: 1fr var(--grid-resizer-size) 1fr;
+  grid-template-areas: "editorArea resizer1 previewArea";
+
+  height: calc(100vh - var(--header-height));
+  width: 100vw;
+}
+
+.editor-grid {
+  grid-template-rows:
+    1fr var(--grid-resizer-size) 1fr var(--grid-resizer-size)
+    1fr;
+  grid-template-areas:
+    "htmlEditor"
+    "resizer2"
+    "cssEditor"
+    "resizer3"
+    "jsEditor";
+
+  height: 100%;
+}
+
+/* Grid areas */
+
+#editorArea {
+  grid-area: editorArea;
+}
+
+#htmlEditor {
+  grid-area: htmlEditor;
+}
+
+#cssEditor {
+  grid-area: cssEditor;
+}
+
+#javascriptEditor {
+  grid-area: jsEditor;
+}
+
+#previewArea {
+  grid-area: previewArea;
+}
+
+#resizer1 {
+  grid-area: resizer1;
+}
+
+#resizer2 {
+  grid-area: resizer2;
+}
+
+#resizer3 {
+  grid-area: resizer3;
+}
