@@ -37,7 +37,7 @@ function Header() {
             <kbd>Ctrl</kbd>
             <kbd>Space</kbd>
           </dt>
-          <dd>Activate autocomplete</dd>
+          <dd>Activate autocomplete on current editor</dd>
           <dt>
             <kbd>Esc</kbd>
           </dt>
