@@ -6,28 +6,27 @@ import Grid from "./components/Grid";
 import Editor from "./components/Editor";
 import Preview from "./components/Preview";
 
-import { storageAvailable } from "./utils";
+import {
+  storageAvailable,
+  generateHtmlCode,
+  generateCssCode,
+  generateJsCode,
+} from "./utils";
 
 const htmlCodeKey = "codeapp:htmlCode";
 const cssCodeKey = "codeapp:cssCode";
 const jsCodeKey = "codeapp:jsCode";
 
+export function getInitialCode(key, fallbackCodeGenerator) {
+  return storageAvailable("localStorage") && localStorage.getItem(key)
+    ? localStorage.getItem(key)
+    : fallbackCodeGenerator();
+}
+
 const initialValues = {
-  htmlCode: storageAvailable("localStorage")
-    ? localStorage.getItem(htmlCodeKey)
-      ? localStorage.getItem(htmlCodeKey)
-      : ""
-    : "" || "",
-  cssCode: storageAvailable("localStorage")
-    ? localStorage.getItem(cssCodeKey)
-      ? localStorage.getItem(cssCodeKey)
-      : ""
-    : "" || "",
-  jsCode: storageAvailable("localStorage")
-    ? localStorage.getItem(jsCodeKey)
-      ? localStorage.getItem(jsCodeKey)
-      : ""
-    : "" || "",
+  htmlCode: getInitialCode(htmlCodeKey, generateHtmlCode),
+  cssCode: getInitialCode(cssCodeKey, generateCssCode),
+  jsCode: getInitialCode(jsCodeKey, generateJsCode),
 };
 
 const previewReloadDelay = 3000;
