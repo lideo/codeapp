@@ -1,4 +1,4 @@
-# codeapp
+# CodeApp
 
 A WIP clone of codepen.
 
