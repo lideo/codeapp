@@ -50,6 +50,7 @@ const Editor = React.forwardRef(({ mode, autofocus, onChange, value }, ref) => {
     />
   );
 });
+Editor.displayName = "Editor";
 
 Editor.propTypes = {
   mode: PropTypes.string,

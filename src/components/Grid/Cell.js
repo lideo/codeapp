@@ -1,14 +1,15 @@
 import React, { Children } from "react";
 import PropTypes from "prop-types";
 
-function Cell({ id = "", label = "", children }) {
+const Cell = React.forwardRef(({ id = "", label = "", children }, ref) => {
   return (
-    <div className="cell" id={id}>
+    <div className="cell" id={id} ref={ref}>
       {label && <span className="label">{label}</span>}
       {children}
     </div>
   );
-}
+});
+Cell.displayName = "Cell";
 
 Cell.propTypes = {
   id: PropTypes.string,

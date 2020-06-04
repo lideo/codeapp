@@ -28,6 +28,14 @@ function Grid({
   preview = "",
 }) {
   const resizer = useRef(noResizer);
+  const resizer1 = useRef(null);
+  const resizer2 = useRef(null);
+  const resizer3 = useRef(null);
+
+  const grid1 = useRef(null);
+  const grid2 = useRef(null);
+
+  const previewRef = useRef(null);
 
   useEffect(() => {
     const debouncedHandleResize = debounce(() => {
@@ -42,11 +50,12 @@ function Grid({
     document.querySelector("body").style.cursor = cursor;
   }
 
-  function handleStartResize(event, resizerType, resizerId) {
+  function handleStartResize(event, resizerType, resizerId, resizerRef) {
     resizer.current = {
       isResizing: true,
       type: resizerType,
       id: resizerId,
+      ref: resizerRef,
     };
 
     const cursor = resizerType === "horizontal" ? "row-resize" : "col-resize";
@@ -64,10 +73,10 @@ function Grid({
   }
 
   function disablePreviewArea() {
-    document.getElementById("previewArea").style.zIndex = -1;
+    previewRef.current.style.zIndex = -1;
   }
   function enablePreviewArea() {
-    document.getElementById("previewArea").style.zIndex = "initial";
+    previewRef.current.style.zIndex = "initial";
   }
 
   function computeSizes(
@@ -92,20 +101,20 @@ function Grid({
   }
 
   function resetSizes() {
-    const allGrids = document.querySelectorAll(".grid-container");
+    grid1.current.style.gridTemplateRows = "";
+    grid1.current.style.gridTemplateColumns = "";
 
-    allGrids.forEach((grid) => {
-      grid.style.gridTemplateRows = "";
-      grid.style.gridTemplateColumns = "";
-    });
+    grid2.current.style.gridTemplateRows = "";
+    grid2.current.style.gridTemplateColumns = "";
   }
 
   function handleResize(event) {
     if (resizer.current.isResizing) {
-      const resizerElement = document.getElementById(resizer.current.id);
+      const resizerElement = resizer.current.ref.current;
       const prevElement = resizerElement.previousSibling;
       const nextElement = resizerElement.nextSibling;
       const parentGrid = resizerElement.parentNode;
+
       const areas = getComputedStyle(parentGrid)
         .gridTemplateAreas.split('"')
         .join("")
@@ -149,13 +158,15 @@ function Grid({
       className="grid-container main-grid"
       onMouseUp={handleEndResize}
       onMouseMove={handleResize}
+      ref={grid1}
     >
       <Cell id="editorArea">
-        <div className="grid-container editor-grid">
+        <div className="grid-container editor-grid" ref={grid2}>
           <Cell id="htmlEditor" label="HTML">
             {htmlEditor}
           </Cell>
           <Resizer
+            ref={resizer2}
             id="resizer2"
             type="horizontal"
             onMouseDownCallback={handleStartResize}
@@ -164,6 +175,7 @@ function Grid({
             {cssEditor}
           </Cell>
           <Resizer
+            ref={resizer3}
             id="resizer3"
             type="horizontal"
             onMouseDownCallback={handleStartResize}
@@ -174,11 +186,14 @@ function Grid({
         </div>
       </Cell>
       <Resizer
+        ref={resizer1}
         id="resizer1"
         type="vertical"
         onMouseDownCallback={handleStartResize}
       />
-      <Cell id="previewArea">{preview}</Cell>
+      <Cell id="previewArea" ref={previewRef}>
+        {preview}
+      </Cell>
     </div>
   );
 }
