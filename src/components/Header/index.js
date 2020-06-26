@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import Modal from "../Modal";
+import Download from "../Download";
 
-function Header() {
+function Header({ onDownload }) {
   const [helpVisible, setHelpVisible] = useState(false);
 
   function toggleShowHelp(event) {
@@ -21,7 +23,7 @@ function Header() {
             </button>
           </li>
           <li>
-            <a href="https://github.com/lideo/codeapp">GitHub</a>
+            <Download handleDownload={onDownload} />
           </li>
         </ul>
       </nav>
@@ -43,9 +45,26 @@ function Header() {
           </dt>
           <dd>Close this modal</dd>
         </dl>
+        <p>
+          <a
+            href="https://github.com/lideo/codeapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View on GitHub
+          </a>
+        </p>
       </Modal>
     </header>
   );
 }
+
+Header.propTypes = {
+  onDownload: PropTypes.func,
+};
+
+Header.defaultProps = {
+  onDownload: () => {},
+};
 
 export default Header;

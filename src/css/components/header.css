@@ -42,7 +42,7 @@ header nav ul > li {
 }
 
 header nav ul > li + li {
-  margin-left: 1.5em;
+  margin-left: 3em;
 }
 
 header nav button {

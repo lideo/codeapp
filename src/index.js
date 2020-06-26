@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 
+import { saveAs } from "file-saver";
+
 import Header from "./components/Header";
 import Grid from "./components/Grid";
 import Editor from "./components/Editor";
@@ -11,6 +13,7 @@ import {
   generateHtmlCode,
   generateCssCode,
   generateJsCode,
+  generateFileName,
 } from "./utils";
 
 const htmlCodeKey = "codeapp:htmlCode";
@@ -57,6 +60,37 @@ function App() {
     updatePreview();
   }
 
+  function handleDownload(event, downloadButtonRef) {
+    const htmlCode2Save = localStorage.getItem(htmlCodeKey);
+    const cssCode2Save = localStorage.getItem(cssCodeKey);
+    const jsCode2Save = localStorage.getItem(jsCodeKey);
+
+    const content = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>${cssCode2Save}</style>
+      </head>
+      <body>${htmlCode2Save}
+      <script>${jsCode2Save}</script>
+      </body>
+    </html>`;
+
+    try {
+      var isFileSaverSupported = !!new Blob();
+    } catch (error) {
+      console.error("This browser doesn't support file saving.\n", error);
+    }
+
+    if (isFileSaverSupported) {
+      const fileName = generateFileName();
+      const blob = new Blob([content], {
+        type: "text/html;charset=utf-8",
+      });
+      saveAs.saveAs(blob, fileName);
+    }
+  }
+
   useEffect(() => {
     if (storageAvailable("localStorage")) {
       localStorage.setItem(htmlCodeKey, htmlCode);
@@ -99,7 +133,7 @@ function App() {
 
   return (
     <Fragment>
-      <Header />
+      <Header onDownload={handleDownload} />
       <Grid
         htmlEditor={htmlEditor}
         cssEditor={cssEditor}

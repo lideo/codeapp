@@ -98,3 +98,9 @@ export function generateCssCode() {
 export function generateJsCode() {
   return `document.write("<p>Anothe paragraph injected by JavaScript.</p>");`;
 }
+
+export function generateFileName() {
+  const now = new Date();
+
+  return `${now.getFullYear()}${now.getMonth()}${now.getDate()}${now.getHours()}${now.getMinutes()}${now.getSeconds()}.html`;
+}
