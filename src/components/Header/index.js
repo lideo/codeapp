@@ -18,12 +18,12 @@ function Header({ onDownload }) {
       <nav>
         <ul>
           <li>
+            <Download handleDownload={onDownload} />
+          </li>
+          <li>
             <button type="button" onClick={toggleShowHelp}>
               Help
             </button>
-          </li>
-          <li>
-            <Download handleDownload={onDownload} />
           </li>
         </ul>
       </nav>
@@ -36,14 +36,20 @@ function Header({ onDownload }) {
         <h3>Keyboard shortcuts</h3>
         <dl>
           <dt>
+            <kbd>Cmd</kbd>
+            <kbd>s</kbd> / <kbd>Ctrl</kbd>
+            <kbd>s</kbd>
+          </dt>
+          <dd>Download your code.</dd>
+          <dt>
             <kbd>Ctrl</kbd>
             <kbd>Space</kbd>
           </dt>
-          <dd>Activate autocomplete on current editor</dd>
+          <dd>Activate autocomplete on current editor.</dd>
           <dt>
             <kbd>Esc</kbd>
           </dt>
-          <dd>Close this modal</dd>
+          <dd>Close this modal.</dd>
         </dl>
         <p>
           <a
