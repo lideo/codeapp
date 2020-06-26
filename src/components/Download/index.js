@@ -14,8 +14,7 @@ function Download({ handleDownload }) {
     },
     {
       filter: (event) => {
-        var tagName = (event.target || event.srcElement).tagName;
-        return tagName === "BODY" || tagName === "TEXTAREA";
+        return true;
       },
       // Need to listen for keydown events:
       // https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
